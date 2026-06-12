@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Pagination",
+  "type": "object",
+  "properties": {
+    "limit": {
+      "type": "integer",
+      "description": "Number of items per page"
+    },
+    "offset": {
+      "type": "integer",
+      "description": "Number of items skipped"
+    },
+    "total": {
+      "type": "integer",
+      "description": "Total number of items"
+    }
+  }
+}

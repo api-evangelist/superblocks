@@ -50,6 +50,8 @@ apis:
         url: https://docs.superblocks.com/
       - type: OpenAPI
         url: https://docs.superblocks.com/api-reference/openapi.json
+      - type: OpenAPI
+        url: openapi/superblocks-superblocks-api-openapi.yml
 common:
   - type: Website
     url: https://www.superblocks.com/
@@ -73,6 +75,10 @@ common:
     url: rate-limits/superblocks-rate-limits.yml
   - type: FinOps
     url: finops/superblocks-finops.yml
+  - type: Vocabulary
+    url: vocabulary/superblocks-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/superblocks-context.jsonld
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

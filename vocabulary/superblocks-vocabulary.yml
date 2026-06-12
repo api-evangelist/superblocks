@@ -1,0 +1,42 @@
+vocabulary:
+  - term: application
+    definition: >
+      A Superblocks internal tool built on the platform, capable of connecting to databases,
+      REST APIs, GraphQL APIs, and SaaS integrations. Applications have a lifecycle of draft,
+      published, or archived states.
+  - term: workflow
+    definition: >
+      An automated process in Superblocks that can be triggered on a schedule or via API call.
+      Workflows connect to integrations and can be in active, inactive, or error states.
+  - term: scheduled job
+    definition: >
+      A Superblocks workflow configured to run automatically on a time-based schedule, used for
+      recurring data operations and automated reporting.
+  - term: integration
+    definition: >
+      A configured connection to an external data source or service within Superblocks, supporting
+      databases, REST APIs, GraphQL APIs, and 50+ SaaS platforms.
+  - term: API key
+    definition: >
+      An authentication credential passed via the X-API-Key header to authenticate requests to
+      the Superblocks Management API at api.superblocks.com/v1.
+  - term: bearer JWT
+    definition: >
+      A JSON Web Token passed as a Bearer token in the Authorization header for authenticating
+      Superblocks Management API requests.
+  - term: template
+    definition: >
+      A predefined layout for creating Superblocks applications; available types include blank,
+      dashboard, form, and table.
+  - term: hybrid deployment
+    definition: >
+      A Superblocks deployment model where the control plane is managed by Superblocks but data
+      stays within the user's own infrastructure.
+  - term: Cloud-Prem
+    definition: >
+      A Superblocks deployment model that installs the full platform into a private VPC on AWS,
+      GCP, or Azure, giving organizations full data sovereignty.
+  - term: GitHub Actions
+    definition: >
+      Official Superblocks CI/CD integrations for export, import, and deployment of Superblocks
+      resources directly from GitHub workflows.

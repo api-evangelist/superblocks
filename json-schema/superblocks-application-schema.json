@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Application",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the application"
+    },
+    "name": {
+      "type": "string",
+      "description": "Application name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Application description"
+    },
+    "template": {
+      "type": "string",
+      "description": "Template used for the application"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "published",
+        "archived"
+      ],
+      "description": "Application status"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "superblocks": "https://docs.superblocks.com/api-reference/#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Application": "superblocks:Application",
+    "Workflow": "superblocks:Workflow",
+    "ScheduledJob": "superblocks:ScheduledJob",
+    "Integration": "superblocks:Integration",
+
+    "id": "@id",
+    "type": "@type",
+
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "superblocks:status",
+      "@type": "xsd:string"
+    },
+    "template": {
+      "@id": "superblocks:template",
+      "@type": "xsd:string"
+    },
+    "trigger": {
+      "@id": "superblocks:trigger",
+      "@type": "xsd:string"
+    },
+    "created_at": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "updated_at": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "data": {
+      "@id": "superblocks:data",
+      "@container": "@list"
+    },
+    "pagination": {
+      "@id": "superblocks:pagination",
+      "@type": "@id"
+    },
+    "limit": {
+      "@id": "superblocks:limit",
+      "@type": "xsd:integer"
+    },
+    "offset": {
+      "@id": "superblocks:offset",
+      "@type": "xsd:integer"
+    },
+    "total": {
+      "@id": "superblocks:total",
+      "@type": "xsd:integer"
+    },
+    "error": {
+      "@id": "superblocks:error",
+      "@type": "xsd:string"
+    },
+    "code": {
+      "@id": "superblocks:errorCode",
+      "@type": "xsd:string"
+    }
+  }
+}

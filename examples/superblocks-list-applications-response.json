@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "name": "Customer Dashboard",
+      "description": "A dashboard for customer support team",
+      "template": "dashboard",
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-10-01T14:30:00Z",
+      "status": "published"
+    }
+  ],
+  "pagination": {
+    "limit": 20,
+    "offset": 0,
+    "total": 1
+  }
+}
