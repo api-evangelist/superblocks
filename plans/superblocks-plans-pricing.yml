@@ -1,0 +1,231 @@
+specification: API Commons Plans 0.1
+provider: Superblocks
+providerId: superblocks
+created: 2026-06-12
+modified: 2026-06-12
+reconciled: true
+url: https://www.superblocks.com/pricing
+plans:
+  - name: Free
+    slug: free
+    type: free
+    description: >
+      Free tier for individuals getting started with Superblocks. Includes limited execution
+      time quotas and step output sizes. Up to 5 users with unlimited apps, workflows, and
+      scheduled jobs.
+    features:
+      - type: quota
+        name: Users
+        metric: users
+        limit: 5
+        period: null
+        notes: Up to 5 users
+      - type: boolean
+        name: Unlimited Apps
+        metric: apps
+        enabled: true
+      - type: boolean
+        name: Unlimited Workflows and Scheduled Jobs
+        metric: workflows_scheduled_jobs
+        enabled: true
+      - type: quota
+        name: Application API execution time
+        metric: execution_seconds
+        limit: 30
+        period: per_run
+        notes: 30 second max per Application API run
+      - type: quota
+        name: Workflow execution time
+        metric: execution_seconds
+        limit: 60
+        period: per_run
+        notes: 1 minute max per workflow run
+      - type: quota
+        name: Scheduled Job execution time
+        metric: execution_seconds
+        limit: 60
+        period: per_run
+        notes: 1 minute max per scheduled job run
+      - type: quota
+        name: Step output size
+        metric: output_mb
+        limit: 5
+        period: null
+        notes: 5 MB max step output
+      - type: quota
+        name: Steps per second per user
+        metric: steps_per_second
+        limit: 500
+        period: per_second
+      - type: quota
+        name: Steps per second per organization
+        metric: steps_per_second
+        limit: 5000
+        period: per_second
+  - name: Teams
+    slug: teams
+    type: paid
+    description: >
+      Teams plan for engineering teams building internal tools. Priced per AI Builder seat
+      with a 14-day free trial. Supports up to 15 Builders with staging and production
+      environments, RBAC, 50+ integrations, and 100 AI Credits per Builder monthly.
+    price:
+      monthly: 125
+      annual: 100
+      currency: USD
+      unit: per AI Builder per month
+      trial_days: 14
+    features:
+      - type: quota
+        name: AI Builders
+        metric: builders
+        limit: 15
+        period: null
+        notes: Up to 15 Builders per team
+      - type: quota
+        name: AI Credits
+        metric: ai_credits
+        limit: 100
+        period: monthly
+        notes: 100 AI Credits per Builder per month
+      - type: boolean
+        name: Clark AI agent for app building
+        metric: clark_ai
+        enabled: true
+      - type: boolean
+        name: Clark User Memory
+        metric: clark_user_memory
+        enabled: true
+      - type: boolean
+        name: Staging and production environments
+        metric: environments
+        enabled: true
+      - type: quota
+        name: Integrations
+        metric: integrations
+        limit: 50
+        period: null
+        notes: 50+ integrations supported
+      - type: boolean
+        name: Role-based access control (RBAC)
+        metric: rbac
+        enabled: true
+      - type: boolean
+        name: Unlimited end users
+        metric: end_users
+        enabled: true
+      - type: quota
+        name: Hosted app included
+        metric: hosted_apps
+        limit: 1
+        period: null
+        notes: 1 hosted app included; additional apps $100/month
+      - type: quota
+        name: Application API execution time
+        metric: execution_seconds
+        limit: 300
+        period: per_run
+        notes: 5 minute max per Application API run
+      - type: quota
+        name: Workflow execution time
+        metric: execution_seconds
+        limit: 600
+        period: per_run
+        notes: 10 minute max per workflow run
+      - type: quota
+        name: Scheduled Job execution time
+        metric: execution_seconds
+        limit: 1800
+        period: per_run
+        notes: 30 minute max per scheduled job run
+      - type: quota
+        name: Step output size
+        metric: output_mb
+        limit: 20
+        period: null
+        notes: 20 MB max step output
+      - type: quota
+        name: Steps per second per user
+        metric: steps_per_second
+        limit: 5000
+        period: per_second
+      - type: quota
+        name: Steps per second per organization
+        metric: steps_per_second
+        limit: 50000
+        period: per_second
+  - name: Enterprise
+    slug: enterprise
+    type: enterprise
+    description: >
+      Custom pricing for organizations requiring advanced governance, VPC deployment, SSO/SAML/OIDC,
+      unlimited custom integration profiles, source control (GitHub, GitLab, BitBucket, Azure DevOps),
+      secrets management, embedded applications, audit logs, and dedicated account support.
+    price:
+      monthly: null
+      annual: null
+      currency: USD
+      unit: custom
+      notes: Contact sales for custom pricing
+    features:
+      - type: boolean
+        name: Everything in Teams
+        metric: teams_features
+        enabled: true
+      - type: boolean
+        name: Clark Integration and Organization Memory
+        metric: clark_org_memory
+        enabled: true
+      - type: boolean
+        name: Source control (GitHub, GitLab, BitBucket, Azure DevOps)
+        metric: source_control
+        enabled: true
+      - type: boolean
+        name: Secrets Management integration
+        metric: secrets_management
+        enabled: true
+      - type: boolean
+        name: Embedded applications
+        metric: embedded_apps
+        enabled: true
+      - type: boolean
+        name: SSO/SAML/OIDC
+        metric: sso
+        enabled: true
+      - type: boolean
+        name: VPC deployment (Hybrid or Cloud-Prem)
+        metric: vpc_deployment
+        enabled: true
+      - type: boolean
+        name: Audit logs and observability pipelines
+        metric: audit_logs
+        enabled: true
+      - type: boolean
+        name: Dedicated account team
+        metric: dedicated_support
+        enabled: true
+      - type: boolean
+        name: Enterprise uptime SLAs
+        metric: sla
+        enabled: true
+      - type: boolean
+        name: Unlimited custom integration profiles
+        metric: custom_profiles
+        enabled: true
+      - type: quota
+        name: Step output size
+        metric: output_mb
+        limit: 20
+        period: null
+        notes: 20 MB max step output
+      - type: quota
+        name: Parallel block paths
+        metric: parallel_paths
+        limit: 50
+        period: null
+      - type: quota
+        name: Stream send size
+        metric: stream_kb
+        limit: 2048
+        period: null
+        notes: 2 MB stream send size

@@ -1,0 +1,117 @@
+specification: API Commons Rate Limits 0.1
+provider: Superblocks
+providerId: superblocks
+created: 2026-06-12
+modified: 2026-06-12
+url: https://docs.superblocks.com/development-lifecycle/build/rate-limits-and-quotas
+throttled:
+  statusCode: 429
+  retryAfter: true
+  retryAfterHeader: Retry-After
+  notes: >
+    When rate limits are exceeded, Superblocks returns HTTP 429. Users on Free/Trial tiers
+    hitting limits should upgrade their plan or contact support to request limit increases.
+limits:
+  - scope: per_user
+    metric: steps_per_second
+    limit: 500
+    timeFrame: per_second
+    tier: Free
+    notes: 500 steps per second per user on Free and Trial tiers
+  - scope: per_user
+    metric: steps_per_second
+    limit: 5000
+    timeFrame: per_second
+    tier: Pro/Enterprise
+    notes: 5,000 steps per second per user on Pro and Enterprise tiers
+  - scope: per_organization
+    metric: steps_per_second
+    limit: 5000
+    timeFrame: per_second
+    tier: Free
+    notes: 5,000 steps per second per organization on Free and Trial tiers
+  - scope: per_organization
+    metric: steps_per_second
+    limit: 50000
+    timeFrame: per_second
+    tier: Pro/Enterprise
+    notes: 50,000 steps per second per organization on Pro and Enterprise tiers
+  - scope: per_api
+    metric: steps_per_second
+    limit: 500
+    timeFrame: per_second
+    tier: Free
+    notes: 500 steps per second per single API on Free and Trial tiers
+  - scope: per_api
+    metric: steps_per_second
+    limit: 5000
+    timeFrame: per_second
+    tier: Pro/Enterprise
+    notes: 5,000 steps per second per single API on Pro and Enterprise tiers
+executionTimeLimits:
+  - resource: application_api
+    tier: Free
+    limitSeconds: 30
+    notes: Application API runs capped at 30 seconds on Free tier
+  - resource: application_api
+    tier: Teams/Pro/Enterprise
+    limitSeconds: 300
+    notes: Application API runs capped at 5 minutes on Teams/Pro/Enterprise tiers
+  - resource: workflow
+    tier: Free
+    limitSeconds: 30
+    notes: Workflow runs capped at 30 seconds on Free tier
+  - resource: workflow
+    tier: Teams/Pro/Enterprise
+    limitSeconds: 600
+    notes: Workflow runs capped at 10 minutes on Teams/Pro/Enterprise tiers
+  - resource: scheduled_job
+    tier: Free
+    limitSeconds: 60
+    notes: Scheduled job runs capped at 1 minute on Free tier
+  - resource: scheduled_job
+    tier: Teams/Pro/Enterprise
+    limitSeconds: 1800
+    notes: Scheduled job runs capped at 30 minutes on Teams/Pro/Enterprise tiers
+  - resource: language_step
+    tier: Free
+    limitSeconds: 60
+    notes: Python/JavaScript language step runs capped at 1 minute on Free tier
+  - resource: language_step
+    tier: Teams
+    limitSeconds: 60
+    notes: Python/JavaScript language step runs capped at 1 minute on Teams tier
+  - resource: language_step
+    tier: Pro/Enterprise
+    limitSeconds: 120
+    notes: Python/JavaScript language step runs capped at 2 minutes on Pro/Enterprise tiers
+sizeLimits:
+  - resource: step_output
+    tier: Free
+    limitMB: 5
+    notes: Step output capped at 5 MB on Free tier
+  - resource: step_output
+    tier: Teams/Pro/Enterprise
+    limitMB: 20
+    notes: Step output capped at 20 MB on Teams/Pro/Enterprise tiers
+  - resource: stream_send
+    tier: Free
+    limitKB: 500
+    notes: Stream send size capped at 500 kB on Free and Trial tiers
+  - resource: stream_send
+    tier: Enterprise
+    limitKB: 2048
+    notes: Stream send size capped at 2 MB on Enterprise tier
+  - resource: parallel_block_paths
+    tier: Free
+    limit: 10
+    notes: 10 parallel block paths on Free and Trial tiers
+  - resource: parallel_block_paths
+    tier: Pro/Enterprise
+    limit: 50
+    notes: 50 parallel block paths on Pro and Enterprise tiers
+  - resource: frontend_data_return
+    limitMB: 10
+    notes: >
+      Recommended limit for returning data from backend API steps to the frontend is 10 MB;
+      exceeding this may cause degraded performance for end users

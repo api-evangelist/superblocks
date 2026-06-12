@@ -1,0 +1,77 @@
+specification: FinOps Framework 1.0
+provider: Superblocks
+providerId: superblocks
+created: 2026-06-12
+modified: 2026-06-12
+url: https://www.superblocks.com/pricing
+billingModel: seat-based
+billingNotes: >
+  Superblocks charges per AI Builder seat on the Teams plan ($100-$125/month per Builder),
+  with a separate per-hosted-app charge ($100/month per additional app beyond the first).
+  Enterprise pricing is custom and negotiated based on organizational needs.
+  AI Credits are allocated per Builder per month (100 credits/Builder on Teams).
+focusColumns:
+  - ChargeCategory
+  - ResourceType
+  - ResourceId
+  - SKU
+  - BilledCost
+  - EffectiveCost
+  - BillingPeriodStart
+  - BillingPeriodEnd
+  - Region
+  - ServiceName
+meters:
+  - name: AI Builder Seats
+    unit: builder_seat
+    description: >
+      Per-seat charge for each AI Builder (developer or power user) on the Teams plan.
+      Billed monthly or annually.
+    price:
+      monthly: 125
+      annual: 100
+      currency: USD
+    sku: SUPERBLOCKS_BUILDER_SEAT
+  - name: Hosted App
+    unit: hosted_app
+    description: >
+      One hosted app is included per team on Teams plan. Additional hosted apps are charged
+      at $100/month each.
+    price:
+      monthly: 100
+      currency: USD
+    sku: SUPERBLOCKS_HOSTED_APP
+    notes: First hosted app included in Teams plan; $100/month per additional app
+  - name: AI Credits
+    unit: ai_credit
+    description: >
+      AI Credits consumed by the Clark AI agent when building apps. Teams plan allocates
+      100 credits per Builder per month. Additional credits or higher allocation available
+      in Enterprise.
+    price:
+      notes: Included in Teams plan at 100 credits/Builder/month; overage pricing not publicly listed
+    sku: SUPERBLOCKS_AI_CREDIT
+principles:
+  Visibility:
+    description: >
+      Superblocks provides audit logs and observability pipelines (Enterprise tier) to track
+      platform usage, app activity, and API consumption. The Platform MCP (Management Control
+      Plane) turns all activity across the platform into a queryable system of record with
+      real-time visibility into app usage, permissions, and audit logs.
+    features:
+      - Audit logs (Enterprise)
+      - Observability pipelines (Enterprise)
+      - Platform MCP for real-time activity visibility
+      - Usage monitoring per application and workflow
+  Optimization:
+    description: >
+      Teams can reduce costs by purchasing annual plans (20% discount vs monthly), right-sizing
+      Builder seat counts, and choosing the appropriate deployment model (Cloud vs Hybrid vs
+      Cloud-Prem) to balance hosting costs. Staying within plan rate limits and execution time
+      quotas avoids throttling and the need to upgrade prematurely.
+    features:
+      - Annual billing discount (20% savings vs monthly)
+      - Tiered execution time quotas to control compute costs
+      - Hybrid/Cloud-Prem deployment to leverage existing cloud spend
+      - AI Credit pooling per organization
+      - Single hosted app included per team to minimize additional charges
