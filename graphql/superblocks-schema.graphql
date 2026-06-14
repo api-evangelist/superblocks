@@ -1,0 +1,409 @@
+# Superblocks Platform Domain Schema (GraphQL SDL)
+#
+# Source: Derived from open-source Protocol Buffer definitions in
+#         https://github.com/superblocksteam/agent (types/proto/)
+# Note:   Superblocks does NOT expose a public GraphQL management API.
+#         This SDL documents the Superblocks platform domain model in
+#         GraphQL terms for catalog and tooling purposes.
+#         The live management API is REST: https://api.superblocks.com/v1
+#
+# Confirmed type/field names sourced from:
+#   - types/proto/api/v1/api.proto
+#   - types/proto/api/v1/requests.proto
+#   - types/proto/common/v1/common.proto
+#   - types/proto/integration/v1/service.proto
+#   - types/proto/plugins/graphql/v1/plugin.proto
+
+# ──────────────────────────────────────────────
+# Scalars
+# ──────────────────────────────────────────────
+
+scalar DateTime
+scalar UUID
+scalar JSON
+
+# ──────────────────────────────────────────────
+# Enums
+# ──────────────────────────────────────────────
+
+"""Authorization model applied to a Superblocks application or workflow."""
+enum AuthorizationType {
+  AUTHORIZATION_TYPE_UNSPECIFIED
+  AUTHORIZATION_TYPE_APP_USERS
+  AUTHORIZATION_TYPE_JS_EXPRESSION
+}
+
+"""Interval unit for a ScheduledJob trigger."""
+enum JobInterval {
+  INTERVAL_UNSPECIFIED
+  INTERVAL_MINUTE
+  INTERVAL_HOUR
+  INTERVAL_DAY
+  INTERVAL_WEEK
+  INTERVAL_MONTH
+}
+
+"""Integration kind — plugin datasource or secret."""
+enum IntegrationKind {
+  KIND_UNSPECIFIED
+  KIND_PLUGIN
+  KIND_SECRET
+}
+
+"""User type — internal Superblocks user or external/SSO user."""
+enum UserType {
+  USER_TYPE_UNSPECIFIED
+  USER_TYPE_SUPERBLOCKS
+  USER_TYPE_EXTERNAL
+}
+
+"""Block execution wait strategy for Parallel blocks."""
+enum ParallelWait {
+  WAIT_UNSPECIFIED
+  WAIT_ALL
+  WAIT_NONE
+}
+
+# ──────────────────────────────────────────────
+# Core Metadata & Timestamps
+# ──────────────────────────────────────────────
+
+"""Timestamps tracking creation, last update, and deactivation of a resource."""
+type Timestamps {
+  created: DateTime
+  updated: DateTime
+  deactivated: DateTime
+}
+
+"""
+Common metadata present on every named Superblocks resource
+(applications, workflows, scheduled jobs).
+"""
+type Metadata {
+  id: UUID!
+  name: String!
+  description: String
+  organization: UUID!
+  folder: String
+  timestamps: Timestamps
+  version: String
+  tags: JSON
+  type: String
+}
+
+"""A Superblocks environment profile (editor / preview / deployed)."""
+type Profile {
+  id: UUID
+  name: String
+  environment: String @deprecated(reason: "Use name instead")
+}
+
+# ──────────────────────────────────────────────
+# Application
+# ──────────────────────────────────────────────
+
+"""
+Profile mode availability settings — which profiles are available and which
+is the default for editor, preview, and deployed view modes.
+"""
+type ProfileModeSettings {
+  default: String!
+  available: [String!]!
+}
+
+"""Profile mode configuration for an application resource."""
+type ProfileModes {
+  editor: ProfileModeSettings
+  preview: ProfileModeSettings
+  deployed: ProfileModeSettings
+}
+
+"""Profile availability for a workflow or scheduled job."""
+type Profiles {
+  modes: ProfileModes
+}
+
+"""
+An Application in Superblocks — the primary unit of internal tooling.
+Contains UI pages, backend API steps, and authorization settings.
+"""
+type Application {
+  metadata: Metadata!
+  trigger: ApplicationTrigger
+  authorization: Authorization
+  status: String
+}
+
+"""Trigger configuration for an Application (page-load behavior)."""
+type ApplicationTrigger {
+  executeOnPageLoad: Boolean
+  id: UUID!
+  pageId: UUID
+}
+
+"""Authorization rule on an Application or Workflow."""
+type Authorization {
+  type: AuthorizationType!
+  expression: String
+}
+
+# ──────────────────────────────────────────────
+# Workflow
+# ──────────────────────────────────────────────
+
+"""
+A Workflow in Superblocks — a REST endpoint callable from Applications,
+scheduled jobs, webhooks, or external code.
+"""
+type Workflow {
+  metadata: Metadata!
+  trigger: WorkflowTrigger
+  authorization: Authorization
+  status: String
+}
+
+"""Trigger configuration for a Workflow, including profile and deployment options."""
+type WorkflowTrigger {
+  options: WorkflowOptions
+  parameters: WorkflowParameters
+}
+
+type WorkflowOptions {
+  profiles: Profiles
+  deployedCommitId: String
+}
+
+type WorkflowParameters {
+  query: JSON
+  body: JSON
+}
+
+# ──────────────────────────────────────────────
+# Scheduled Job
+# ──────────────────────────────────────────────
+
+"""
+A Scheduled Job in Superblocks — a workflow executed on a cron-like schedule.
+"""
+type ScheduledJob {
+  metadata: Metadata!
+  trigger: JobTrigger
+  authorization: Authorization
+}
+
+"""Trigger configuration for a Scheduled Job."""
+type JobTrigger {
+  options: JobOptions
+  frequency: Int!
+  interval: JobInterval!
+  dayOfMonth: Int
+  days: JobDays
+  time: DateTime
+  timezoneLocale: String
+}
+
+type JobOptions {
+  profiles: Profiles
+  sendEmailOnFailure: Boolean!
+  deployedCommitId: String
+}
+
+"""Days-of-week selector for weekly scheduled jobs."""
+type JobDays {
+  sunday: Boolean!
+  monday: Boolean!
+  tuesday: Boolean!
+  wednesday: Boolean!
+  thursday: Boolean!
+  friday: Boolean!
+  saturday: Boolean!
+}
+
+# ──────────────────────────────────────────────
+# Datasource / Integration
+# ──────────────────────────────────────────────
+
+"""
+An Integration (datasource) in Superblocks.
+Integrations connect the platform to external databases, REST APIs,
+GraphQL APIs, SaaS services, and secret managers.
+"""
+type Integration {
+  id: UUID!
+  created: DateTime!
+  updated: DateTime!
+  name: String!
+  pluginId: String!
+  organizationId: UUID!
+  demoIntegrationId: UUID
+  configurations: [IntegrationConfiguration!]!
+  isUserConfigured: Boolean!
+  slug: String!
+  kind: IntegrationKind!
+}
+
+"""
+A profile-scoped configuration for an Integration.
+Multiple configurations allow per-environment connection settings.
+"""
+type IntegrationConfiguration {
+  id: UUID!
+  created: DateTime!
+  integrationId: UUID!
+  configuration: JSON!
+  isDefault: Boolean!
+  profileIds: [UUID!]!
+}
+
+# ──────────────────────────────────────────────
+# GraphQL Plugin Configuration
+# ──────────────────────────────────────────────
+
+"""A single HTTP header key/value pair for a GraphQL integration step."""
+type GraphQLHeader {
+  key: String!
+  value: String!
+}
+
+"""
+GraphQL plugin step configuration — used when an Application API step
+or Workflow step calls an external or internal GraphQL API.
+Sourced from: types/proto/plugins/graphql/v1/plugin.proto
+"""
+type GraphQLPluginConfig {
+  """The remote GraphQL endpoint URL."""
+  path: String!
+
+  """Additional HTTP headers sent with every request (e.g. Authorization)."""
+  headers: [GraphQLHeader!]!
+
+  """The raw GraphQL query or mutation body."""
+  body: String!
+
+  """Optional: JSON-serialized GraphQL variables."""
+  variables: String
+
+  """Optional: the request format (e.g. JSON)."""
+  requestFormat: String
+
+  """
+  When true, include raw HTTP response metadata (status, headers) in
+  the step output in addition to the GraphQL data payload.
+  """
+  verboseHttpOutput: Boolean!
+
+  """
+  When true, treat GraphQL responses that contain an errors array as
+  execution failures rather than soft errors.
+  """
+  failOnGraphqlErrors: Boolean!
+}
+
+# ──────────────────────────────────────────────
+# Query Root
+# ──────────────────────────────────────────────
+
+"""
+Query root.
+NOTE: These fields represent the REST management API resources expressed in
+GraphQL terms. The live API is REST at https://api.superblocks.com/v1.
+"""
+type Query {
+  """List all applications in the organization (paginated)."""
+  applications(limit: Int, offset: Int): ApplicationsPage!
+
+  """Retrieve a single application by ID."""
+  application(id: UUID!): Application
+
+  """List all workflows in the organization."""
+  workflows(limit: Int, offset: Int): WorkflowsPage!
+
+  """Retrieve a single workflow by ID."""
+  workflow(id: UUID!): Workflow
+
+  """List all scheduled jobs in the organization."""
+  scheduledJobs(limit: Int, offset: Int): ScheduledJobsPage!
+
+  """Retrieve a single scheduled job by ID."""
+  scheduledJob(id: UUID!): ScheduledJob
+
+  """List integrations/datasources, optionally filtered by kind or slug."""
+  integrations(kind: IntegrationKind, slug: String, ids: [UUID!]): [Integration!]!
+
+  """Retrieve a single integration by ID."""
+  integration(id: UUID!): Integration
+}
+
+# ──────────────────────────────────────────────
+# Mutation Root
+# ──────────────────────────────────────────────
+
+"""
+Mutation root — management operations on Superblocks resources.
+Corresponds to the REST management API write endpoints.
+"""
+type Mutation {
+  """Create a new application."""
+  createApplication(name: String!, description: String, template: ApplicationTemplate): Application!
+
+  """Update an existing application."""
+  updateApplication(id: UUID!, name: String, description: String): Application!
+
+  """Delete an application by ID."""
+  deleteApplication(id: UUID!): Boolean!
+
+  """Patch one or more API definitions (batch update with git ref)."""
+  patchApis(patches: [PatchApiInput!]!): PatchApisResult!
+}
+
+# ──────────────────────────────────────────────
+# Input & Helper Types
+# ──────────────────────────────────────────────
+
+"""Application starting template."""
+enum ApplicationTemplate {
+  BLANK
+  DASHBOARD
+  FORM
+  TABLE
+}
+
+input PatchApiInput {
+  apiId: UUID!
+  commitId: String
+  branchName: String
+}
+
+type PatchApiStatus {
+  apiId: String!
+  code: Int!
+  message: String
+}
+
+type PatchApisResult {
+  statuses: [PatchApiStatus!]!
+}
+
+"""Paginated list of applications."""
+type ApplicationsPage {
+  data: [Application!]!
+  total: Int!
+  limit: Int!
+  offset: Int!
+}
+
+"""Paginated list of workflows."""
+type WorkflowsPage {
+  data: [Workflow!]!
+  total: Int!
+  limit: Int!
+  offset: Int!
+}
+
+"""Paginated list of scheduled jobs."""
+type ScheduledJobsPage {
+  data: [ScheduledJob!]!
+  total: Int!
+  limit: Int!
+  offset: Int!
+}
