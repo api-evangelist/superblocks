@@ -58,6 +58,12 @@ apis:
   - url: graphql/superblocks-graphql.md
     type: GraphQL
 common:
+- type: TrustCenter
+  url: security/superblocks-trust-center.yml
+- type: DomainSecurity
+  url: security/superblocks-domain-security.yml
+- type: Authentication
+  url: authentication/superblocks-authentication.yml
 - type: Website
   url: https://www.superblocks.com/
 - type: Documentation
