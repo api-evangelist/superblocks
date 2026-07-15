@@ -58,6 +58,8 @@ apis:
   - url: graphql/superblocks-graphql.md
     type: GraphQL
 common:
+- type: AgenticAccess
+  url: agentic-access/superblocks-agentic-access.yml
 - type: TrustCenter
   url: security/superblocks-trust-center.yml
 - type: DomainSecurity
