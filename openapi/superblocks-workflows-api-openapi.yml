@@ -1,0 +1,67 @@
+openapi: 3.0.0
+info:
+  title: Superblocks Applications Workflows API
+  description: API for managing Superblocks applications, workflows, and integrations
+  version: 1.0.0
+servers:
+- url: https://api.superblocks.com/v1
+  description: Production server
+- url: https://staging-api.superblocks.com/v1
+  description: Staging server
+security:
+- bearerAuth: []
+tags:
+- name: Workflows
+paths:
+  /workflows:
+    get:
+      summary: List workflows
+      description: Retrieve a list of all workflows
+      tags:
+      - Workflows
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Workflow'
+components:
+  schemas:
+    Workflow:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the workflow
+        name:
+          type: string
+          description: Workflow name
+        description:
+          type: string
+          description: Workflow description
+        trigger:
+          type: string
+          description: Workflow trigger type
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          - error
+          description: Workflow status
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
