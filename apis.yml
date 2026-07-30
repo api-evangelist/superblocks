@@ -1,7 +1,20 @@
 aid: superblocks
 name: Superblocks
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: true
+  try_now: true
+  public: false
+  label: Freemium (free trial) · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/superblocks.png
 url: https://raw.githubusercontent.com/api-evangelist/superblocks/refs/heads/main/apis.yml
 created: 2026-06-12
 modified: 2026-06-12
@@ -33,30 +46,34 @@ tags:
 - REST API
 - developer tools
 apis:
-- aid: superblocks:superblocks-api
-  name: Superblocks Management API
-  type: REST
-  description: 'REST API for managing Superblocks applications, workflows, and integrations.
-    Provides CRUD operations for applications and workflow listing, authenticated
-    via API key (X-API-Key header) or Bearer JWT. Base URL is https://api.superblocks.com/v1.
-
-    '
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: superblocks:superblocks-applications-api
+  name: Superblocks Applications API
+  description: The Applications API from Superblocks — 2 operation(s) for applications.
   humanURL: https://docs.superblocks.com/
   baseURL: https://api.superblocks.com/v1
   tags:
-  - applications
-  - workflows
-  - management
+  - Applications
   properties:
+  - type: OpenAPI
+    url: openapi/superblocks-applications-api-openapi.yml
   - type: Documentation
     url: https://docs.superblocks.com/
+  - type: GraphQL
+    url: graphql/superblocks-graphql.md
+- aid: superblocks:superblocks-workflows-api
+  name: Superblocks Workflows API
+  description: The Workflows API from Superblocks — 1 operation(s) for workflows.
+  humanURL: https://docs.superblocks.com/
+  baseURL: https://api.superblocks.com/v1
+  tags:
+  - Workflows
+  properties:
   - type: OpenAPI
-    url: https://docs.superblocks.com/api-reference/openapi.json
-  - type: OpenAPI
-    url: openapi/superblocks-superblocks-api-openapi.yml
-  - url: graphql/superblocks-graphql.md
-    type: GraphQL
+    url: openapi/superblocks-workflows-api-openapi.yml
+  - type: Documentation
+    url: https://docs.superblocks.com/
+  - type: GraphQL
+    url: graphql/superblocks-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/superblocks-agentic-access.yml
