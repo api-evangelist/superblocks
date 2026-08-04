@@ -1,0 +1,292 @@
+openapi: 3.0.0
+info:
+  title: Superblocks API
+  description: API for managing Superblocks applications, workflows, and integrations
+  version: 1.0.0
+servers:
+- url: https://api.superblocks.com/v1
+  description: Production server
+- url: https://staging-api.superblocks.com/v1
+  description: Staging server
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+  schemas:
+    Application:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the application
+        name:
+          type: string
+          description: Application name
+        description:
+          type: string
+          description: Application description
+        template:
+          type: string
+          description: Template used for the application
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        status:
+          type: string
+          enum:
+          - draft
+          - published
+          - archived
+          description: Application status
+    Workflow:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the workflow
+        name:
+          type: string
+          description: Workflow name
+        description:
+          type: string
+          description: Workflow description
+        trigger:
+          type: string
+          description: Workflow trigger type
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          - error
+          description: Workflow status
+    Pagination:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: Number of items per page
+        offset:
+          type: integer
+          description: Number of items skipped
+        total:
+          type: integer
+          description: Total number of items
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Error code
+        details:
+          type: object
+          description: Additional error details
+security:
+- bearerAuth: []
+paths:
+  /applications:
+    get:
+      summary: List applications
+      description: Retrieve a list of all applications accessible to the authenticated
+        user
+      tags:
+      - Applications
+      parameters:
+      - name: limit
+        in: query
+        description: Number of applications to return
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      - name: offset
+        in: query
+        description: Number of applications to skip
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Application'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create application
+      description: Create a new Superblocks application
+      tags:
+      - Applications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - description
+              properties:
+                name:
+                  type: string
+                  description: Application name
+                  example: Customer Dashboard
+                description:
+                  type: string
+                  description: Application description
+                  example: A dashboard for customer support team
+                template:
+                  type: string
+                  description: Template to use for the application
+                  enum:
+                  - blank
+                  - dashboard
+                  - form
+                  - table
+                  default: blank
+      responses:
+        '201':
+          description: Application created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /applications/{id}:
+    get:
+      summary: Get application
+      description: Retrieve details of a specific application
+      tags:
+      - Applications
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Application ID
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Application details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '404':
+          description: Application not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update application
+      description: Update an existing application
+      tags:
+      - Applications
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Application ID
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Application name
+                description:
+                  type: string
+                  description: Application description
+      responses:
+        '200':
+          description: Application updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+    delete:
+      summary: Delete application
+      description: Delete an application
+      tags:
+      - Applications
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Application ID
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Application deleted successfully
+        '404':
+          description: Application not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workflows:
+    get:
+      summary: List workflows
+      description: Retrieve a list of all workflows
+      tags:
+      - Workflows
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Workflow'

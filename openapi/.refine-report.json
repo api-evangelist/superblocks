@@ -1,0 +1,16 @@
+{
+  "provider": "superblocks",
+  "sources": [
+    "superblocks-applications-api-openapi.yml",
+    "superblocks-workflows-api-openapi.yml"
+  ],
+  "outputs": [
+    "superblocks-applications-api-openapi.yml",
+    "superblocks-workflows-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
