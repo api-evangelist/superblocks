@@ -18,7 +18,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/superblock
 url: https://raw.githubusercontent.com/api-evangelist/superblocks/refs/heads/main/apis.yml
 created: 2026-06-12
 modified: 2026-06-12
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 description: 'Superblocks is a programmable internal tools platform that enables engineering
   and IT teams to build, govern, and deploy enterprise-grade internal applications,
   workflows, and scheduled jobs on top of databases, REST APIs, GraphQL APIs, and
