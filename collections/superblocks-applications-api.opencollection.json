@@ -1,0 +1,125 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Superblocks Applications API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Applications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.superblocks.com/v1/applications",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of applications to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of applications to skip"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all applications accessible to the authenticated user"
+        },
+        {
+          "info": {
+            "name": "Create application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.superblocks.com/v1/applications",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Superblocks application"
+        },
+        {
+          "info": {
+            "name": "Get application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.superblocks.com/v1/applications/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Application ID"
+              }
+            ]
+          },
+          "docs": "Retrieve details of a specific application"
+        },
+        {
+          "info": {
+            "name": "Update application",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.superblocks.com/v1/applications/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Application ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing application"
+        },
+        {
+          "info": {
+            "name": "Delete application",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.superblocks.com/v1/applications/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Application ID"
+              }
+            ]
+          },
+          "docs": "Delete an application"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
