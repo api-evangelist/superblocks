@@ -33,6 +33,19 @@ description: 'Superblocks is a programmable internal tools platform that enables
 
   '
 tags:
+- Internal Tools
+- Low-Code
+- No-Code
+- Application
+- Workflows
+- Scheduled Jobs
+- Integration
+- Enterprise
+- Artificial Intelligence
+- Databases
+- REST API
+- Developer Tools
+tags_raw:
 - internal tools
 - low-code
 - no-code
@@ -52,6 +65,8 @@ apis:
   humanURL: https://docs.superblocks.com/
   baseURL: https://api.superblocks.com/v1
   tags:
+  - Application
+  tags_raw:
   - Applications
   properties:
   - type: OpenAPI
