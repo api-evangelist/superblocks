@@ -1,0 +1,32 @@
+# Front Door AI Index — superblocks — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: superblocks
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.superblocks.com
+  final_host: www.superblocks.com
+  ownership: own
+  owner: superblocks
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 22
+  host_score: 22
+  density: 33.9
+  words: 649
+  tiers:
+    agentic: 7
+    core: 12
+    model: 3
+  ambiguous: 3
+  top_terms:
+    AI: 11
+    MCP: 3
+    agent: 3
+    inference: 3
+    Claude: 2
+    AI agent: 1
+    Bedrock: 1
+    LLMs: 1

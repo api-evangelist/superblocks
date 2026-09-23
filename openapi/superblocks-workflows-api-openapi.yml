@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Superblocks Applications Workflows API
+  title: Superblocks Workflows API
   description: API for managing Superblocks applications, workflows, and integrations
   version: 1.0.0
 servers:
@@ -31,6 +31,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Workflow'
+      operationId: getWorkflows
+      x-operation-id-source: derived
 components:
   schemas:
     Workflow:

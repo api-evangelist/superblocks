@@ -1,8 +1,7 @@
 {
   "provider": "superblocks",
   "sources": [
-    "superblocks-applications-api-openapi.yml",
-    "superblocks-workflows-api-openapi.yml"
+    "_original/superblocks-superblocks-api-openapi.yml"
   ],
   "outputs": [
     "superblocks-applications-api-openapi.yml",
@@ -11,6 +10,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "superblocks-superblocks-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "superblocks-superblocks-api-openapi.yml: declared missing tag: Applications",
+    "superblocks-superblocks-api-openapi.yml: declared missing tag: Workflows",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "superblocks-applications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "superblocks-workflows-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
