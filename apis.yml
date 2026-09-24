@@ -86,8 +86,6 @@ apis:
     url: openapi/superblocks-applications-api-openapi.yml
   - type: Documentation
     url: https://docs.superblocks.com/
-  - type: GraphQL
-    url: graphql/superblocks-graphql.md
 - aid: superblocks:superblocks-workflows-api
   name: Superblocks Workflows API
   description: The Workflows API from Superblocks — 1 operation(s) for workflows.
@@ -100,8 +98,6 @@ apis:
     url: openapi/superblocks-workflows-api-openapi.yml
   - type: Documentation
     url: https://docs.superblocks.com/
-  - type: GraphQL
-    url: graphql/superblocks-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/superblocks-agentic-access.yml
